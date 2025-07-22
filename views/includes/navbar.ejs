@@ -1,0 +1,78 @@
+<style>
+  /* 🔍 Search Button Style */
+  .btn-search {
+    background-color: #fe424d; /* 🔴 Red background */
+    color: #fff;               /* White text */
+    border-radius: 25px;       /* Full-rounded edges */
+    padding: 0 1rem;           /* Horizontal padding */
+  }
+
+  /* 🔍 Hover state of Search Button */
+  .btn-search:hover {
+    background-color: #fe424d; /* Same red (no color change) */
+    color: #fff;
+  }
+
+  .btn-search i {
+    display: inline;
+    margin-right: 0.5rem;  /* Gap between icon and text */
+  }
+
+  /* 🔎 Search Input Styling */
+  .search-inp {
+    border-radius: 25px;              /* Rounded edges */
+    padding: 0.5rem 3rem;             /* Vertical + horizontal padding */
+    font-size: 0.8rem;                /* Slightly smaller font */
+  }
+</style>
+
+<!-- 📦 Bootstrap responsive navbar with sticky top -->
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+
+    <!-- 🧭 Logo: Compass icon (goes to listings) -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <!-- 📱 Toggle button for smaller screens -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- 📁 Main Collapsible Navbar Section -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- 🌐 Explore Link (always visible) -->
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <!-- 🔍 Search Bar aligned to right (ms-auto = margin-start:auto) -->
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations">
+          <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <!-- 👤 Auth Links Section aligned to right -->
+      <div class="navbar-nav ms-auto">
+        <!-- 🏠 Create Listing -->
+        <a class="nav-link" href="/listings/new">Airbnb your home</a>
+
+        <% if (!currUser) { %>
+          <!-- 👤 Guest User - Show Sign Up / Login -->
+          <a class="nav-link" href="/signup"><b>Sign up</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %>
+
+        <% if (currUser) { %>
+          <!-- 🔓 Logged-in User - Show Logout -->
+          <a class="nav-link" href="/logout"><b>Logout</b></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

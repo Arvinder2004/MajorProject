@@ -1,0 +1,37 @@
+<!-- ✅ Agar success message exist karta hai aur uski length > 0 hai -->
+<% if(success && success.length) { %>
+
+<!-- ✅ Success alert (green box) -->
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+    
+    <!-- 🟢 Success Message Content -->
+    <%= success %>
+
+    <!-- ❌ Close Button for dismissing the alert -->
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+</div>
+<% } %>
+
+<!-- ✅ Agar error message exist karta hai aur uski length > 0 hai -->
+<% if(error && error.length) { %>
+
+<!-- ❌ Error alert (red box) -->
+<div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+    
+    <!-- 🔴 Error Message Content -->
+    <%= error %>
+
+    <!-- ❌ Close Button for dismissing the alert -->
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+</div>
+<% } %>

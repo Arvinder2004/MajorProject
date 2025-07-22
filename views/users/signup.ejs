@@ -1,0 +1,81 @@
+<% layout("/layouts/boilerplate") %>
+<!-- 
+🧱 Ye line `ejs-mate` ka layout system use kar rahi hai.
+- Iska matlab: ye page "layouts/boilerplate.ejs" layout file ka child hoga.
+- Us layout file ke  body placeholder tag ke andar ye content inject hoga.
+-->
+
+<div class="row mt-3">
+    <!-- 
+    📦 Bootstrap row banaya gaya hai.
+    - mt-3 => margin-top: 3 units (thoda vertical spacing upar se)
+    -->
+
+    <h1 class="col-6 offset-3">SignUp on WanderLust</h1>
+    <!-- 
+    🖊️ Heading centered hai using col-6 (half width) + offset-3 (left se 3 column ka gap)
+    - Total 6 + 3 = 9, so centered in 12-column grid
+    -->
+
+    <div class="col-8 offset-3">
+    <!-- 
+    📦 Form container:
+    - 8 columns width
+    - 3 columns left offset
+    -->
+
+        <form action="/signup" method="POST" class="needs-validation" novalidate>
+        <!-- 
+        📝 Form POST request bhejega /signup route par
+        - class="needs-validation" & novalidate = Bootstrap validation logic ke liye (client-side)
+        -->
+
+            <!-- ✅ Username Input -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+
+                <input 
+                    name="username" 
+                    id="username"
+                    type="text" 
+                    class="form-control" 
+                    required
+                />
+                <div class="valid-feedback">Looks good</div>
+                <!-- ✅ Bootstrap ka feedback message jab field valid ho -->
+            </div>
+
+            <!-- ✅ Email Input -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+
+                <input 
+                    name="email" 
+                    id="email"
+                    type="email" 
+                    class="form-control" 
+                    required
+                />
+                <!-- HTML5 validation use karega email format ke liye -->
+            </div>
+
+            <!-- ✅ Password Input -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+
+                <input 
+                    name="password" 
+                    id="password"
+                    type="password" 
+                    class="form-control" 
+                    required
+                />
+            </div>
+
+            <!-- ✅ Submit Button -->
+            <button class="btn btn-success">SignUp</button>
+            <!-- Green success button to submit the form -->
+        </form>
+
+    </div>
+</div>

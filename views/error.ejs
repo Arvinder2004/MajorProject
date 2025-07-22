@@ -1,0 +1,26 @@
+<% layout("/layouts/boilerplate") %>
+<!-- 
+🧱 Ye line ejs-mate ka feature hai. 
+Iska matlab hai ki is page ka layout template "layouts/boilerplate.ejs" hoga.
+Us layout file ke  body placeholder  ke andar ye content render hoga.
+-->
+
+<div class="row mt-3">
+  <!-- 
+  📦 Bootstrap ka row class: ek horizontal row banata hai 
+  mt-3 = margin-top 3 units → upar se thoda gap deta hai 
+  -->
+
+  <div class="alert alert-danger col-6 offset-3" role="alert">
+    <!-- 
+    🚨 Ye ek Bootstrap alert box hai jismein:
+    - alert-danger = red color box (errors ke liye use hota hai)
+    - col-6 = 12-column grid ka half width (center mein lane ke liye)
+    - offset-3 = 3 column left side se space (so center aligned)
+    - role="alert" = accessibility feature (screen readers ke liye)
+    -->
+
+    <p class="alert-heading"><%= message %></p>
+    <!-- 
+    💬 Ye EJS variable print kar raha hai.
+    - message backend se aata
