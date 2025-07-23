@@ -6,10 +6,18 @@ const Listing = require("../models/listing");
 // Route: GET /listings
 // ============================================
 module.exports.index = async (req, res) => {
-    // 🔍 Saare listings database se fetch kar liye
-    const allListings = await Listing.find({});
-    // 🖥️ listings/index.ejs page render karo aur listings data bhejo
-    res.render("listings/index.ejs", { allListings });
+
+    try{
+        // 🔍 Saare listings database se fetch kar liye
+        const allListings = await Listing.find({});
+        // 🖥️ listings/index.ejs page render karo aur listings data bhejo
+        res.render("listings/index.ejs", { allListings });
+    }
+    catch (err) {
+        console.error("Error fetching listings:", err);
+        req.flash("error", "Server is waking up or listing fetch failed. Please try again shortly.");
+        res.redirect("/");
+    }
 };
 
 // ============================================
