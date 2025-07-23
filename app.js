@@ -11,6 +11,7 @@ const methodOverride = require("method-override"); // PUT/DELETE HTTP methods us
 const ejsMate = require("ejs-mate"); // EJS templates mein layouts use karne ke liye
 const ExpressError = require("./utils/ExpressError.js"); // Custom error handling class
 const session = require("express-session"); // Sessions ke liye (login/logout track karne ke liye)
+const MongoStore = require("connect-mongo"); // MongoDB mein session store karne ke liye
 const flash = require("connect-flash"); // Flash messages dikhane ke liye (like success/error)
 const passport = require("passport"); // Authentication ke liye
 const LocalStrategy = require("passport-local"); // Local strategy for username-password auth
@@ -22,8 +23,8 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 // ✅ MongoDB Connection
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL;
 // Database se connect hone ki async function
 main()
   .then(() => {
@@ -34,7 +35,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL); // MongoDB connect
+  await mongoose.connect(dbUrl); // MongoDB connect
 }
 
 // ✅ View Engine Setup
@@ -47,9 +48,24 @@ app.use(express.urlencoded({ extended: true })); // Form data ko parse karne ke 
 app.use(methodOverride("_method")); // PUT/DELETE method allow karne ke liye (via query string)
 app.use(express.static(path.join(__dirname, "/public"))); // Static files serve karne ke liye (CSS/JS/images)
 
+
+// // ✅ MongoDB Store for Sessions
+// const store = MongoStore.create({
+//   mongoUrl: dbUrl, // MongoDB URL
+//   crypto: {
+//     secret: process.env.SECRET, // Session data ko encrypt karne ke liye secret
+//   },
+//   touchAfter: 24 * 3600, // Session ko update karne ka interval (24 hours)
+// });
+
+// store.on("error", () => {
+//   console.log("Session Store Error", err); // Agar store mein koi error aaye toh print
+// });
+
 // ✅ Session Setup
 app.use(session({
-  secret: 'your_secret_key', // Secret key for session encryption
+  // store, // MongoDB store use karo
+  secret: process.env.SECRET, // Secret key for session encryption
   resave: false, // Har request par session save na ho
   saveUninitialized: true, // Empty session bhi save ho
   cookie: {
@@ -58,6 +74,7 @@ app.use(session({
     httpOnly: true // Client-side JS session access na kar sake
   },
 }));
+
 
 // ✅ Flash Messages
 app.use(flash()); // Flash middleware use karo
