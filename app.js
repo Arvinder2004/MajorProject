@@ -100,6 +100,11 @@ app.use("/listings", listingRouter); // Listings se related routes
 app.use("/listings/:id/reviews", reviewRouter); // Nested reviews route
 app.use("/", userRouter); // Signup, login, logout, etc.
 
+// ✅ Default route for homepage (root URL)
+app.get("/", (req, res) => {
+  res.redirect("/listings"); // 👈 Redirect to listings or your intended homepage
+});
+
 // ✅ Catch-all Route for 404 Errors
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found")); // Koi bhi route match na ho toh 404 error throw
