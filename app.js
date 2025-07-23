@@ -11,7 +11,6 @@ const methodOverride = require("method-override"); // PUT/DELETE HTTP methods us
 const ejsMate = require("ejs-mate"); // EJS templates mein layouts use karne ke liye
 const ExpressError = require("./utils/ExpressError.js"); // Custom error handling class
 const session = require("express-session"); // Sessions ke liye (login/logout track karne ke liye)
-const MongoStore = require("connect-mongo"); // MongoDB mein session store karne ke liye
 const flash = require("connect-flash"); // Flash messages dikhane ke liye (like success/error)
 const passport = require("passport"); // Authentication ke liye
 const LocalStrategy = require("passport-local"); // Local strategy for username-password auth
@@ -113,9 +112,11 @@ app.use((err, req, res, next) => {
 });
 
 // ✅ Start Server
-app.listen(8080, () => {
-  console.log("server is listening to port 8080"); // Server successfully run
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`✅ server is listening on port ${PORT}`);
 });
+
 
 
 
