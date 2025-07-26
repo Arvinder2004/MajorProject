@@ -49,12 +49,18 @@
 
       <!-- 🔍 Search Bar aligned to right (ms-auto = margin-start:auto) -->
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations">
-          <button class="btn btn-search" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>Search
-          </button>
+        <form class="d-flex" role="search" method="GET" action="/listings/search">
+          <input
+          name="q"
+          class="form-control me-2 search-inp"
+          type="search"
+          placeholder="Search destinations"
+        />
+        <button class="btn btn-search" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>Search
+        </button>
         </form>
+
       </div>
 
       <!-- 👤 Auth Links Section aligned to right -->

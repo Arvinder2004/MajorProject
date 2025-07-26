@@ -2,6 +2,9 @@
 const express = require("express");
 const router = express.Router(); // Ab hum is router mein saare listing-related routes define karenge
 
+const Listing = require("../models/listing"); // If not already there
+
+
 // ✅ wrapAsync ek helper function hai jo async functions ke errors ko next() middleware tak bhej deta hai
 const wrapAsync = require("../utils/wrapAsync.js");
 
@@ -29,6 +32,33 @@ router.get("/", wrapAsync(listingController.index));
 // ➤ Sirf logged-in user hi form dekh sakta hai
 // ===========================================
 router.get("/new", isLoggedIn, listingController.renderNewForm);
+
+
+// 🔍 Search Route → Title ya location ke basis par listings filter karta hai
+// URL: /listings/search?q=goa
+// Method: GET
+router.get("/search", wrapAsync(async (req, res) => {
+  const { q } = req.query;
+
+  if (!q || q.trim() === "") {
+    req.flash("error", "Please enter a search term.");
+    return res.redirect("/listings");
+  }
+
+  // 🔍 MongoDB regex search on title or location (case-insensitive)
+  const listings = await Listing.find({
+    $or: [
+      { title: { $regex: q, $options: "i" } },
+      { location: { $regex: q, $options: "i" } },
+    ]
+  });
+
+  if (listings.length === 0) {
+    req.flash("error", `No results found for "${q}"`);
+  }
+
+  res.render("listings/index", { listings });
+}));
 
 
 // ===========================================
