@@ -34,31 +34,8 @@ router.get("/", wrapAsync(listingController.index));
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 
-// 🔍 Search Route → Title ya location ke basis par listings filter karta hai
-// URL: /listings/search?q=goa
-// Method: GET
-router.get("/search", wrapAsync(async (req, res) => {
-  const { q } = req.query;
-
-  if (!q || q.trim() === "") {
-    req.flash("error", "Please enter a search term.");
-    return res.redirect("/listings");
-  }
-
-  // 🔍 MongoDB regex search on title or location (case-insensitive)
-  const listings = await Listing.find({
-    $or: [
-      { title: { $regex: q, $options: "i" } },
-      { location: { $regex: q, $options: "i" } },
-    ]
-  });
-
-  if (listings.length === 0) {
-    req.flash("error", `No results found for "${q}"`);
-  }
-
-  res.render("listings/index", { listings });
-}));
+// 🔍 Search Route
+router.get("/search", wrapAsync(listingController.searchListings));
 
 
 // ===========================================

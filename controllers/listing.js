@@ -123,3 +123,27 @@ module.exports.destroyListing = async (req, res) => {
     // 🔁 Redirect back to all listings
     res.redirect("/listings");
 };
+
+//Search bar
+// ✅ Search Listings
+module.exports.searchListings = async (req, res) => {
+  const { q } = req.query;
+
+  // Agar query empty hai to sabhi listings dikha do
+  if (!q) {
+    const allListings = await Listing.find({});
+    return res.render("listings/index", { allListings });
+  }
+
+  // 🔍 Title, country, location ke basis par search
+  const regex = new RegExp(q, 'i'); // case-insensitive search
+  const allListings = await Listing.find({
+    $or: [
+      { title: regex },
+      { country: regex },
+      { location: regex }
+    ]
+  });
+
+  res.render("listings/index", { allListings });
+};
