@@ -1,8 +1,8 @@
 <% layout("/layouts/boilerplate") %>
-<!-- 🧱 Page boilerplate layout use kiya gaya -->
+
 
 <style>
-  /* 🎨 Filters row styling */
+  
   #filters {
     display: flex;
     flex-wrap: wrap;
@@ -25,12 +25,11 @@
     font-size: 0.8rem;
   }
 
-  /* GST info initially hidden */
+
   .tax-info {
     display: none;
   }
 
-  /* 💡 Toggle switch styling */
   .tax-toggle {
     border: 1px solid black;
     border-radius: 1rem;
@@ -42,9 +41,9 @@
   }
 </style>
 
-<!-- 🔍 Filters row (Trending, Rooms, etc.) -->
+
 <div id="filters">
-  <!-- Har filter ek Font Awesome icon ke sath -->
+ 
   <div class="filter">
     <div><i class="fa-solid fa-fire"></i></div>
     <p>Trending</p>
@@ -60,7 +59,7 @@
   <div class="filter"><div><i class="fa-solid fa-igloo"></i></div><p>Domes</p></div>
   <div class="filter"><div><i class="fa-solid fa-sailboat"></i></div><p>Boats</p></div>
 
-  <!-- 💰 Tax Toggle Switch -->
+ 
   <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
@@ -71,7 +70,7 @@
   </div>
 </div>
 
-<!-- 🏠 Listings Cards Grid -->
+
 <% if (allListings.length === 0) { %>
   <div class="alert alert-warning mt-4">
     No listings found. Please try again later or create a new one.
@@ -79,7 +78,7 @@
 <% } else { %>
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for(let listing of allListings) { %>
-      <!-- 📦 Card for each listing -->
+      
       <a href="/listings/<%= listing._id %>" class="listing-link">
         <div class="card col listing-card">
           <img src="<%= listing.image %>" class="card-img-top" alt="listing_image" style="height: 20rem;" />
@@ -98,14 +97,14 @@
 <% } %>
 
 
-<!-- ✅ JavaScript for tax toggle -->
+
 <script>
   let taxSwitch = document.getElementById("flexSwitchCheckDefault");
 
   taxSwitch.addEventListener("click", () => {
     let taxInfo = document.getElementsByClassName("tax-info");
 
-    // 🧠 Loop through sabhi .tax-info elements and toggle display
+    
     for (let info of taxInfo) {
       if (info.style.display != "inline") {
         info.style.display = "inline";

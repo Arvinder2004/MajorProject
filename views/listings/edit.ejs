@@ -1,17 +1,15 @@
 <% layout("/layouts/boilerplate") %>
-<!-- 📄 Ye page boilerplate layout ko use kar raha hai jisme navbar, CSS wagaira already setup hoti hai -->
+
 
 <div class="row mt-3">
   <div class="col-8 offset-2">
-    <!-- 🧱 8 column wide content centered using offset -->
+
 
     <h4>Edit your Listing</h4>
 
-    <!-- 📝 Form to edit existing listing -->
     <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
-      <!-- 🔁 _method=PUT used with method-override to simulate PUT request -->
+      
 
-      <!-- 🎯 Title Field -->
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input 
@@ -24,18 +22,18 @@
         <div class="valid-feedback">Title looks good</div>
       </div>
 
-      <!-- 📝 Description Field -->
+
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea 
           name="listing[description]" 
           class="form-control"
           required
-        ><%= listing.description %></textarea> <!-- 🔄 Pre-filled description -->
+        ><%= listing.description %></textarea> 
         <div class="invalid-feedback">Please enter a short description</div>
       </div>
 
-      <!-- 🖼️ Image Link Field -->
+   
       <div class="mb-3">
         <label for="image" class="form-label">Image Link</label>
         <input 
@@ -46,9 +44,9 @@
         />
       </div>
 
-      <!-- 💵 Price + 🌍 Country Fields (in a row) -->
+      
       <div class="row">
-        <!-- Price Field -->
+       
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>
           <input 
@@ -61,7 +59,7 @@
           <div class="invalid-feedback">Price should be valid</div>
         </div>
 
-        <!-- Country Field -->
+        
         <div class="mb-3 col-md-8">
           <label for="country" class="form-label">Country</label>
           <input 
@@ -75,7 +73,7 @@
         </div>
       </div>
 
-      <!-- 📍 Location Field -->
+      
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <input 
@@ -88,11 +86,10 @@
         <div class="invalid-feedback">Location should be valid</div>
       </div>
 
-      <!-- ✅ Submit Button -->
+     
       <button class="btn btn-dark edit-btn mt-3">Edit</button>
     </form>
   </div>
 </div>
 
-<!-- 📜 Optional custom JavaScript -->
 <script src="/js/script.js"></script>

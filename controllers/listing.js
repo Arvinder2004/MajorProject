@@ -1,16 +1,10 @@
-// ✅ Listing model import kiya - taaki hum MongoDB me listings se related operations kar sakein
 const Listing = require("../models/listing");
 
-// ============================================
-// ✅ INDEX CONTROLLER: Show all listings
-// Route: GET /listings
-// ============================================
 module.exports.index = async (req, res) => {
 
     try{
-        // 🔍 Saare listings database se fetch kar liye
         const allListings = await Listing.find({});
-        // 🖥️ listings/index.ejs page render karo aur listings data bhejo
+        
         res.render("listings/index.ejs", { allListings });
     }
     catch (err) {
@@ -20,50 +14,37 @@ module.exports.index = async (req, res) => {
     }
 };
 
-// ============================================
-// ✅ NEW FORM CONTROLLER: Show form to create a new listing
-// Route: GET /listings/new
-// ============================================
+
 module.exports.renderNewForm = (req, res) => {
-    // 🖥️ Nayi listing banane ke liye form show karo
     res.render("listings/new.ejs");
 };
 
-// ============================================
-// ✅ SHOW CONTROLLER: Show single listing with populated data
-// Route: GET /listings/:id
-// ============================================
+
 module.exports.showListing = async (req, res) => {
     let { id } = req.params;
 
-    // 🔍 Listing find karo + reviews ke andar ke authors aur listing ke owner ko populate karo
     const listing = await Listing.findById(id)
         .populate({
             path: "reviews",
             populate: {
-                path: "author", // ✅ Har review ka author bhi load hoga 
+                path: "author",
             },
         })
-        .populate("owner"); // ✅ Listing ka owner bhi populate hoga
+        .populate("owner");
 
-    // ❌ Agar listing nahi mili (invalid ID ya delete ho chuki hai)
     if (!listing) {
         req.flash("error", "Listing you requested for does not exist!");
         return res.redirect("/listings");
     }
 
-    // 🖥️ Show page render karo with complete data
     res.render("listings/show.ejs", { listing });
 };
 
-// ============================================
-// ✅ CREATE CONTROLLER: Create new listing
-// Route: POST /listings
-// ============================================
+
 module.exports.createListing = async (req, res, next) => {
 
   try {
-    const newListing = new Listing(req.body.listing); // ✅ Using nested listing object
+    const newListing = new Listing(req.body.listing); 
     newListing.owner = req.user._id;
     await newListing.save();
 
@@ -75,68 +56,52 @@ module.exports.createListing = async (req, res, next) => {
 };
 
 
-
-// ============================================
-// ✅ EDIT FORM CONTROLLER: Show edit form for a listing
-// Route: GET /listings/:id/edit
-// ============================================
 module.exports.renderEditForm = async (req, res) => {
     let { id } = req.params;
-    // 🔍 Listing fetch kiya jise edit karna hai
     const listing = await Listing.findById(id);
 
-    // ❌ Agar listing nahi mili
     if (!listing) {
         req.flash("error", "Listing you requested for does not exist!");
         return res.redirect("/listings");
     }
 
-    // 🖥️ Edit form render kiya
     res.render("listings/edit.ejs", { listing });
 };
 
-// ============================================
-// ✅ UPDATE CONTROLLER: Update listing data
-// Route: PUT /listings/:id
-// ============================================
+
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
-    // ✏️ Listing ko update kar diya nayi data se
+    
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    // ✅ Success message flash kiya
+    
     req.flash("success", "Listing Updated!");
-    // 🔁 Show page pe redirect kiya
+  
     res.redirect(`/listings/${id}`);
 };
 
-// ============================================
-// ✅ DELETE CONTROLLER: Delete listing
-// Route: DELETE /listings/:id
-// ============================================
+
 module.exports.destroyListing = async (req, res) => {
     let { id } = req.params;
-    // 🗑️ Listing ko database se delete kar diya
+    
     let deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing); // 🐞 Debugging ke liye deleted object dekha
-    // ✅ Flash message dikhaya
+    console.log(deletedListing);
+    
     req.flash("success", "Listing Deleted!");
-    // 🔁 Redirect back to all listings
+   
     res.redirect("/listings");
 };
 
-//Search bar
-// ✅ Search Listings
+
 module.exports.searchListings = async (req, res) => {
   const { q } = req.query;
 
-  // Agar query empty hai to sabhi listings dikha do
   if (!q) {
     const allListings = await Listing.find({});
     return res.render("listings/index", { allListings });
   }
 
-  // 🔍 Title, country, location ke basis par search
-  const regex = new RegExp(q, 'i'); // case-insensitive search
+  
+  const regex = new RegExp(q, 'i');
   const allListings = await Listing.find({
     $or: [
       { title: regex },

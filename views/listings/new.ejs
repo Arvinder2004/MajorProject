@@ -1,24 +1,14 @@
 <% layout("/layouts/boilerplate") %>
-<!-- 
-🧱 Is page ka layout "layouts/boilerplate.ejs" hai.
-Yaani page ke content ko layout ke  body placeholder ke andar inject kiya jayega.
--->
 
 <div class="row">
   <div class="col-8 offset-2">
-    <!-- 🧱 Container center mein laane ke liye: 8 column width + 2 column left offset -->
+    
 
     <h3>Create a New Listing</h3>
 
     <form method="POST" action="/listings" novalidate class="needs-validation">
 
-    <!-- 
-    ✍️ Ye form POST karega /listings par 
-    - novalidate: HTML default validation disable karta hai (custom JS ke liye)
-    - needs-validation: Bootstrap ka validation system use karega
-    -->
-
-      <!-- 🏷️ Title Field -->
+    
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input 
@@ -31,7 +21,7 @@ Yaani page ke content ko layout ke  body placeholder ke andar inject kiya jayega
         <div class="valid-feedback">Title looks good</div>
       </div>
 
-      <!-- 📝 Description Field -->
+      
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea
@@ -42,7 +32,7 @@ Yaani page ke content ko layout ke  body placeholder ke andar inject kiya jayega
         <div class="invalid-feedback">Please enter a short description</div>
       </div>
 
-      <!-- 🖼️ Image Link Field -->
+      
       <div class="mb-3">
         <label for="image" class="form-label">Image Link</label>
         <input
@@ -51,10 +41,10 @@ Yaani page ke content ko layout ke  body placeholder ke andar inject kiya jayega
           type="text"
           class="form-control"
         />
-        <!-- 🧠 Note: image is optional so no required -->
+        
       </div>
 
-      <!-- 💰 Price + 🌎 Country in a row -->
+     
       <div class="row">
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>
@@ -80,7 +70,7 @@ Yaani page ke content ko layout ke  body placeholder ke andar inject kiya jayega
         </div>
       </div>
 
-      <!-- 📍 Location Field -->
+      
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <input
@@ -93,7 +83,7 @@ Yaani page ke content ko layout ke  body placeholder ke andar inject kiya jayega
         <div class="invalid-feedback">Location should be valid</div>
       </div>
 
-      <!-- ✅ Submit Button -->
+      
       <button class="btn btn-dark add-btn">Add</button>
       <br /><br />
     </form>
