@@ -46,18 +46,6 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public"))); 
 
 
-// const store = MongoStore.create({
-//   mongoUrl: dbUrl, // MongoDB URL
-//   crypto: {
-//     secret: process.env.SECRET, // Session data ko encrypt karne ke liye secret
-//   },
-//   touchAfter: 24 * 3600, // Session ko update karne ka interval (24 hours)
-// });
-
-// store.on("error", () => {
-//   console.log("Session Store Error", err); // Agar store mein koi error aaye toh print
-// });
-
 app.use(session({
  
   secret: process.env.SECRET, 
